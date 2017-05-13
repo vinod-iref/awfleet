@@ -1,25 +1,20 @@
 import sqlite3
 import time
 
-class SPOT_PRICE():
-	def __init__(self, db_name):
-		self.conn = sqlite3.connect(db_name)
-		self.cursor = self.conn.cursor()
-		self.table_name = "spotprice"
-		self.sizes = ['m4.large']
+class DB():
+    def __init__(self, db_name):
+        self.conn = sqlite3.connect(db_name)
+        self.cursor = self.conn.cursor()
 
-	def insert(price,size=None,dateline=None):
-		if dateline == None:
-			dateline =  int(time.time())
+    def instance_up(self, table, _id, price, service):
+        dateline = int(time.time())
+        self.cursor.execute("INSERT INTO {} VALUES (?,?,?,?,?)".format(table), (_id, price, service, dateline,1))
+        self.conn.commit()
 
-		if size in self.sizes:
-			self.cursor.execute("INSERT INTO %s VALUES ")
-		else:
-			return None
+    def get_instances(self, table):
+        return [value for value in self.cursor.execute("SELECT * FROM {} WHERE is_up=?".format(table), (1,))]
 
-	def delete():
-		pass
+    def instance_down(self, table, _id):
+        self.cursor.execute("UPDATE {} SET is_up=?".format(table), (0,))
+        self.conn.commit()
 
-	def update():
-		pass
-		

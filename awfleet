@@ -4,6 +4,10 @@ import argparse
 import configparser
 import boto3
 import json
+from lib import Demand
+from db import db
+import shutil
+import time
 
 def configure():
     block_name = raw_input('Block name :')
@@ -21,29 +25,40 @@ def configure():
     with open('.aws/config', 'w') as configfile:
         config.write(configfile)
 
-def send_request(configfile):
+def send_request(configfile, service):
+    demand = Demand()
+    bid_price = demand.get_price()
+    dbase = db.DB('db/fleet.db')
+
     config = configparser.ConfigParser()
     config.read('.aws/config')
     client = boto3.client('ec2')
     with open(configfile, 'r') as config:
         body = json.load(config)
+        body['ClientToken'] = '{}_{:d}'.format(service, int(time.time()))
+        body['SpotPrice'] = bid_price
+
         data = {
             "SpotFleetRequestConfig": body
         }
 
-    res = client.request_spot_fleet(**data)
-    return res
+        res = client.request_spot_fleet(**data)
+        with open('config/{}.json'.format(service), 'w') as newconfig:
+            newconfig.write(json.dumps(body, indent=4))
+        dbase.instance_up('spotinstance', res['SpotFleetRequestId'], bid_price, service)
+        print res
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--configure", nargs='?', const=True, required=False)
     parser.add_argument("--request-spot", help="path to the file with configuration", required=False)
+    parser.add_argument("--service", help="name of the service (required for request-spot requests)", required=False)
     args = parser.parse_args()
     if args.configure:
         configure()
 
-    if args.request_spot is not None:
-        print send_request(args.request_spot)
+    if args.request_spot is not None and args.service is not None:
+        print send_request(args.request_spot, args.service)
 
 if __name__ == '__main__':
     main()

@@ -17,5 +17,5 @@ class Demand():
         SKU = [sku for sku in offers['products'] if offers['products'][sku]['attributes'].get('instanceType') == self.instanceType and offers['products'][sku]['attributes'].get('operatingSystem') == self.operatingSystem][0]
         SKU_TERM = [sku_term for sku_term in offers['terms']['OnDemand'][SKU] if offers['terms']['OnDemand'][SKU][sku_term]['sku'] == SKU][0]
         priceDimensionKey = offers['terms']['OnDemand'][SKU][SKU_TERM]['priceDimensions'].keys()[0]
-        price = offers['terms']['OnDemand'][SKU][SKU_TERM]['priceDimensions'][priceDimensionKey]['pricePerUnit']
+        price = offers['terms']['OnDemand'][SKU][SKU_TERM]['priceDimensions'][priceDimensionKey]['pricePerUnit']['USD']
         return price

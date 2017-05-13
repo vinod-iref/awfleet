@@ -1,0 +1,71 @@
+{
+    "ValidUntil": "2018-05-12T20:14:30Z", 
+    "Type": "request", 
+    "LaunchSpecifications": [
+        {
+            "ImageId": "ami-bdc768de", 
+            "KeyName": "hack", 
+            "BlockDeviceMappings": [
+                {
+                    "DeviceName": "/dev/xvda", 
+                    "Ebs": {
+                        "SnapshotId": "snap-082b7fc8c8f225033", 
+                        "DeleteOnTermination": true, 
+                        "VolumeType": "gp2", 
+                        "VolumeSize": 25
+                    }
+                }
+            ], 
+            "InstanceType": "m4.large", 
+            "SpotPrice": "0.134", 
+            "NetworkInterfaces": [
+                {
+                    "SubnetId": "subnet-16518873", 
+                    "DeviceIndex": 0, 
+                    "DeleteOnTermination": true, 
+                    "AssociatePublicIpAddress": true, 
+                    "Groups": [
+                        "sg-b1356cd6", 
+                        "sg-cbe856ae"
+                    ]
+                }
+            ]
+        }, 
+        {
+            "ImageId": "ami-bdc768de", 
+            "KeyName": "hack", 
+            "BlockDeviceMappings": [
+                {
+                    "DeviceName": "/dev/xvda", 
+                    "Ebs": {
+                        "SnapshotId": "snap-082b7fc8c8f225033", 
+                        "DeleteOnTermination": true, 
+                        "VolumeType": "gp2", 
+                        "VolumeSize": 25
+                    }
+                }
+            ], 
+            "InstanceType": "m4.large", 
+            "SpotPrice": "0.134", 
+            "NetworkInterfaces": [
+                {
+                    "SubnetId": "subnet-24f00c53", 
+                    "DeviceIndex": 0, 
+                    "DeleteOnTermination": true, 
+                    "AssociatePublicIpAddress": true, 
+                    "Groups": [
+                        "sg-b1356cd6", 
+                        "sg-cbe856ae"
+                    ]
+                }
+            ]
+        }
+    ], 
+    "IamFleetRole": "arn:aws:iam::414419480967:role/aws-ec2-spot-fleet-role", 
+    "ClientToken": "test_1494660573", 
+    "TargetCapacity": 1, 
+    "ValidFrom": "2017-05-12T20:14:30Z", 
+    "TerminateInstancesWithExpiration": true, 
+    "SpotPrice": "0.1250000000", 
+    "AllocationStrategy": "lowestPrice"
+}

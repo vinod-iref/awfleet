@@ -1,13 +1,29 @@
 # Create required Database & Tables
-import squite3
+import sqlite3
 
 conn = sqlite3.connect('fleet.db')
 
 c = conn.cursor()
 
-c.execute("CREATE TABLE spotprice(id INT PRIMARY KEY NOT NULL,size TEXT NOT NULL, price INT NOT NULL, dateline INT NOT NULL)")
+c.execute("DROP TABLE IF EXISTS spotinstance")
+c.execute("CREATE TABLE spotinstance "
+          "  ( "
+          "     id      TEXT PRIMARY KEY NOT NULL, "
+          "     price   REAL NOT NULL, "
+          "     service TEXT NOT NULL, "
+          "     datelie INT NOT NULL, "
+          "     is_up   INT NOT NULL "
+          "  )")
 
-c.execute("CREATE INDEX timestamp ON spotprice (dateline);")
+c.execute("DROP TABLE IF EXISTS ondemand")
+c.execute("CREATE TABLE ondemand "
+          "  ( "
+          "     id      TEXT PRIMARY KEY NOT NULL, "
+          "     price   REAL NOT NULL, "
+          "     service TEXT NOT NULL, "
+          "     datelie INT NOT NULL, "
+          "     is_up   INT NOT NULL "
+          "  )")
 
 conn.commit()
 
