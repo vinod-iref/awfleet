@@ -1,18 +1,19 @@
 import requests
 import time
 import json
+import code
 
-class Spot:
+class Spot():
 	"""docstring for spot"""
 	def __init__(self,region_name='apac-sin',size='m4.large',instanceType='generalCurrentGen'):
-		self.spot_pricing_url = "https://spot-price.s3.amazonaws.com/spot.js?callback=callback&_=%s"
+		self.spot_pricing_url = "https://spot-price.s3.amazonaws.com/spot.js?callback=callback&_={:d}"
 		self.region_name = region_name
 		self.instanceType = instanceType
 		self.size = size
 		
 	def get_price(self):
 		time_now = int(time.time())*1000 # Time in micro seconds
-		r =requests.get(self.spot_pricing_url % time_now)
+		r =requests.get(self.spot_pricing_url.format(time_now))
 		data = None
 		if r.status_code == 200:
 			prices = self.extract_json(r.content)

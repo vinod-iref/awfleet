@@ -1,0 +1,70 @@
+{
+  "IamFleetRole": "arn:aws:iam::414419480967:role/aws-ec2-spot-fleet-role",
+  "AllocationStrategy": "lowestPrice",
+  "TargetCapacity": 1,
+  "SpotPrice": "0.134",
+  "ValidFrom": "2017-05-12T20:14:30Z",
+  "ValidUntil": "2018-05-12T20:14:30Z",
+  "TerminateInstancesWithExpiration": true,
+  "LaunchSpecifications": [
+    {
+      "ImageId": "ami-bdc768de",
+      "InstanceType": "m4.large",
+      "KeyName": "hack",
+      "SpotPrice": "0.134",
+      "BlockDeviceMappings": [
+        {
+          "DeviceName": "/dev/xvda",
+          "Ebs": {
+            "DeleteOnTermination": true,
+            "VolumeType": "gp2",
+            "VolumeSize": 25,
+            "SnapshotId": "snap-082b7fc8c8f225033"
+          }
+        }
+      ],
+      "NetworkInterfaces": [
+        {
+          "DeviceIndex": 0,
+          "SubnetId": "subnet-16518873",
+          "DeleteOnTermination": true,
+          "Groups": [
+            "sg-b1356cd6",
+            "sg-cbe856ae"
+          ],
+          "AssociatePublicIpAddress": true
+        }
+      ]
+    },
+    {
+      "ImageId": "ami-bdc768de",
+      "InstanceType": "m4.large",
+      "KeyName": "hack",
+      "SpotPrice": "0.134",
+      "BlockDeviceMappings": [
+        {
+          "DeviceName": "/dev/xvda",
+          "Ebs": {
+            "DeleteOnTermination": true,
+            "VolumeType": "gp2",
+            "VolumeSize": 25,
+            "SnapshotId": "snap-082b7fc8c8f225033"
+          }
+        }
+      ],
+      "NetworkInterfaces": [
+        {
+          "DeviceIndex": 0,
+          "SubnetId": "subnet-24f00c53",
+          "DeleteOnTermination": true,
+          "Groups": [
+            "sg-b1356cd6",
+            "sg-cbe856ae"
+          ],
+          "AssociatePublicIpAddress": true
+        }
+      ]
+    }
+  ],
+  "Type": "request"
+}

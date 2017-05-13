@@ -1,4 +1,4 @@
-from fleet import Spot
+from context import AWSPrice
 
-s = Spot()
+s = AWSPrice()
 print s.get_price()
